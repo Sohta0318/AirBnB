@@ -1,12 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
-
-const StartUpScreen = () => {
+const UploadScreen = () => {
   return (
     <View>
-      <Text>Start up screen</Text>
+      <Text>Upload Screen</Text>
     </View>
   );
 };
 
-export default StartUpScreen;
+export default UploadScreen;

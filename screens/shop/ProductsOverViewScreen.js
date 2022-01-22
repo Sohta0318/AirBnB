@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const StartUpScreen = () => {
+const ProductsOverViewScreen = () => {
   return (
     <View>
-      <Text>Start up screen</Text>
+      <Text>ProductOverView</Text>
     </View>
   );
 };
 
-export default StartUpScreen;
+export default ProductsOverViewScreen;
