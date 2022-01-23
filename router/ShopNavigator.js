@@ -5,7 +5,9 @@ import ProductsOverViewScreen from "../screens/shop/ProductsOverViewScreen";
 import UploadScreen from "../screens/shop/UploadScreen";
 import AuthScreen from "../screens/user/AuthScreen";
 import ProfileScreen from "../screens/user/ProfileScreen";
-import ProductHomeScreen from "../screens/shop/ProductHomeScreen";
+import ProductHomeScreen, {
+  screenOptions as ProductHomeScreenOptions,
+} from "../screens/shop/ProductHomeScreen";
 
 const ProductStackNavigator = createNativeStackNavigator();
 export const ProductNavigator = () => {
@@ -14,6 +16,7 @@ export const ProductNavigator = () => {
       <ProductStackNavigator.Screen
         name="ProductHome"
         component={ProductHomeScreen}
+        options={ProductHomeScreenOptions}
       />
       <ProductStackNavigator.Screen
         name="ProductsOverView"
