@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
+import Colors from "../../constants/Colors";
 
 const SearchBar = (props) => {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...props.style }}>
       <View
         style={
           !props.clicked
@@ -21,8 +22,8 @@ const SearchBar = (props) => {
         <TextInput
           style={styles.input}
           placeholder="Search"
-          value={props.searchPhrase}
-          onChangeText={props.setSearchPhrase}
+          value={props.searchValue}
+          onChangeText={props.setSearchValue}
           onFocus={() => {
             props.setClicked(true);
           }}
@@ -34,7 +35,7 @@ const SearchBar = (props) => {
             color="black"
             style={{ padding: 1 }}
             onPress={() => {
-              props.setSearchPhrase("");
+              props.setSearchValue("");
             }}
           />
         )}
@@ -77,6 +78,8 @@ const styles = StyleSheet.create({
     width: "80%",
     backgroundColor: "#d9dbda",
     borderRadius: 15,
+    borderWidth: 1,
+    borderColor: Colors.primary,
     alignItems: "center",
     justifyContent: "space-evenly",
   },

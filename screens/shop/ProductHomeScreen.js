@@ -1,13 +1,21 @@
-import React from "react";
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
 import CustomHeaderButton from "../../components/UI/HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import SearchBar from "../../components/UI/Search";
 
 const ProductHomeScreen = () => {
+  const [isClicked, setIsClicked] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   return (
     <View>
-      <SearchBar />
+      <SearchBar
+        style={styles.search}
+        clicked={isClicked}
+        setClicked={setIsClicked}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
       <Text>Home Screen</Text>
     </View>
   );
@@ -30,6 +38,8 @@ export const screenOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  search: {},
+});
 
 export default ProductHomeScreen;
