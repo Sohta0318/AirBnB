@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, SafeAreaView } from "react-native";
 import CustomHeaderButton from "../../components/UI/HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { SliderBox } from "react-native-image-slider-box";
 import SearchBar from "../../components/UI/Search";
+import { Images } from "../../data/initial-data";
 
 const ProductHomeScreen = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   return (
-    <View>
-      <SearchBar
-        style={styles.search}
-        clicked={isClicked}
-        setClicked={setIsClicked}
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
-      <Text>Home Screen</Text>
-    </View>
+    <SafeAreaView style={styles.wrapper}>
+      <View>
+        <SearchBar
+          style={styles.search}
+          clicked={isClicked}
+          setClicked={setIsClicked}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+        <SliderBox images={Images} />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -39,7 +43,9 @@ export const screenOptions = (navData) => {
 };
 
 const styles = StyleSheet.create({
-  search: {},
+  wrapper: {
+    flex: 1,
+  },
 });
 
 export default ProductHomeScreen;

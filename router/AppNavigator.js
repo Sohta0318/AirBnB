@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import { ShopNavigator } from "./ShopNavigator";
+import { NoAuthBottomTabNavigator, ShopNavigator } from "./ShopNavigator";
 
 const AppNavigator = () => {
   return (

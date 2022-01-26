@@ -1,8 +1,12 @@
 import React from "react";
-import { View } from "react-native-web";
+import { Text, View } from "react-native";
 
 const ContactScreen = () => {
-  return <View></View>;
+  return (
+    <View>
+      <Text>Contact Page</Text>
+    </View>
+  );
 };
 
 export default ContactScreen;
