@@ -22,15 +22,16 @@ const defaultNavOptions = {
     backgroundColor: Platform.OS === "android" ? Colors.primary : "",
   },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
+  headerShown: false,
 };
 
 const NoAuthBottomTab = createBottomTabNavigator();
 export const NoAuthBottomTabNavigator = () => {
   return (
-    <NoAuthBottomTab.Navigator>
+    <NoAuthBottomTab.Navigator screenOptions={{ headerShown: false }}>
       <NoAuthBottomTab.Screen
         name="Explore"
-        component={ProductHomeScreen}
+        component={ProductNavigator}
         options={{
           tabBarIcon: () => (
             <Ionicons name="ios-search" size={24} color="black" />
@@ -39,7 +40,7 @@ export const NoAuthBottomTabNavigator = () => {
       />
       <NoAuthBottomTab.Screen
         name="WishList"
-        component={ProfileScreen}
+        component={AdminNavigator}
         options={{
           tabBarIcon: () => (
             <Ionicons name="ios-heart-outline" size={24} color="black" />
@@ -48,7 +49,7 @@ export const NoAuthBottomTabNavigator = () => {
       />
       <NoAuthBottomTab.Screen
         name="Log in"
-        component={AuthScreen}
+        component={AuthNavigator}
         options={{
           tabBarIcon: () => (
             <Ionicons name="ios-log-in-outline" size={24} color="black" />
@@ -140,6 +141,7 @@ const ShopDrawer = createDrawerNavigator();
 export const ShopNavigator = () => {
   return (
     <ShopDrawer.Navigator
+      // screenOptions={{ headerShown: false }}
       drawerContent={(props) => {
         return (
           <View style={{ flex: 1, paddingTop: 20 }}>
