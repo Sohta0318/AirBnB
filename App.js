@@ -1,4 +1,4 @@
-import AppNavigator from "./router/AppNavigator";
+import AppNavigator from "./router/ShopNavigator";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 

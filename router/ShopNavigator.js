@@ -1,9 +1,11 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 import {
   createDrawerNavigator,
-  DrawerItemList,
-} from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+  DrawerNavigatorItems,
+} from "react-navigation-drawer";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import ProductsOverViewScreen from "../screens/shop/ProductsOverViewScreen";
@@ -22,157 +24,116 @@ const defaultNavOptions = {
     backgroundColor: Platform.OS === "android" ? Colors.primary : "",
   },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
-  headerShown: false,
 };
 
-const NoAuthBottomTab = createBottomTabNavigator();
-export const NoAuthBottomTabNavigator = () => {
-  return (
-    <NoAuthBottomTab.Navigator screenOptions={{ headerShown: false }}>
-      <NoAuthBottomTab.Screen
-        name="Explore"
-        component={ProductNavigator}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons name="ios-search" size={24} color="black" />
-          ),
-        }}
-      />
-      <NoAuthBottomTab.Screen
-        name="WishList"
-        component={AdminNavigator}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons name="ios-heart-outline" size={24} color="black" />
-          ),
-        }}
-      />
-      <NoAuthBottomTab.Screen
-        name="Log in"
-        component={AuthNavigator}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons name="ios-log-in-outline" size={24} color="black" />
-          ),
-        }}
-      />
-    </NoAuthBottomTab.Navigator>
-  );
-};
+const NoAuthBottomTab = createMaterialBottomTabNavigator({
+  Explore: {
+    screen: ProductHomeScreen,
+    navigationOptions: {
+      tabBarIcon: () => <Ionicons name="ios-search" size={24} color="black" />,
+    },
+  },
+  WishList: ProfileScreen,
+  "Log in": AuthScreen,
+});
+// const NoAuthBottomTab = createBottomTabNavigator();
+// export const NoAuthBottomTabNavigator = () => {
+//   return (
+//     <NoAuthBottomTab.Navigator screenOptions={{ headerShown: false }}>
+//       <NoAuthBottomTab.Screen
+//         name="Explore"
+//         component={ProductNavigator}
+//         options={{
+//           tabBarIcon: () => (
+//             <Ionicons name="ios-search" size={24} color="black" />
+//           ),
+//         }}
+//       />
+//       <NoAuthBottomTab.Screen
+//         name="WishList"
+//         component={AdminNavigator}
+//         options={{
+//           tabBarIcon: () => (
+//             <Ionicons name="ios-heart-outline" size={24} color="black" />
+//           ),
+//         }}
+//       />
+//       <NoAuthBottomTab.Screen
+//         name="Log in"
+//         component={AuthNavigator}
+//         options={{
+//           tabBarIcon: () => (
+//             <Ionicons name="ios-log-in-outline" size={24} color="black" />
+//           ),
+//         }}
+//       />
+//     </NoAuthBottomTab.Navigator>
+//   );
+// };
 
-const ProductStackNavigator = createNativeStackNavigator();
-export const ProductNavigator = () => {
-  return (
-    <ProductStackNavigator.Navigator screenOptions={defaultNavOptions}>
-      <ProductStackNavigator.Screen
-        name="Tab"
-        component={NoAuthBottomTabNavigator}
-      />
-      <ProductStackNavigator.Screen
-        name="ProductHome"
-        component={ProductHomeScreen}
-        options={ProductHomeScreenOptions}
-      />
-      <ProductStackNavigator.Screen
-        name="ProductsOverView"
-        component={ProductsOverViewScreen}
-      />
-      <ProductStackNavigator.Screen
-        name="ProductDetail"
-        component={ProductDetailScreen}
-      />
-    </ProductStackNavigator.Navigator>
-  );
-};
+const ProductsNavigator = createStackNavigator(
+  {
+    Tab: NoAuthBottomTab,
+    ProductHome: ProductHomeScreen,
+    ProductsOverview: ProductsOverViewScreen,
+    ProductDetail: ProductDetailScreen,
+  },
+  {
+    navigationOptions: {
+      drawerIcon: (drawerConfig) => (
+        <Ionicons
+          name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+          size={23}
+          color={drawerConfig.tintColor}
+        />
+      ),
+    },
+    defaultNavigationOptions: defaultNavOptions,
+  }
+);
 
-const UploadStackNavigator = createNativeStackNavigator();
-export const UploadNavigator = () => {
-  return (
-    <UploadStackNavigator.Navigator>
-      <UploadStackNavigator.Screen
-        name="Tab"
-        component={NoAuthBottomTabNavigator}
-      />
-      <UploadStackNavigator.Screen name="Upload" component={UploadScreen} />
-    </UploadStackNavigator.Navigator>
-  );
-};
+const UploadNavigator = createStackNavigator({
+  Upload: UploadScreen,
+  Tab: NoAuthBottomTab,
+});
 
-const AdminStackNavigator = createNativeStackNavigator();
-export const AdminNavigator = () => {
-  return (
-    <AdminStackNavigator.Navigator>
-      <AdminStackNavigator.Screen
-        name="Tab"
-        component={NoAuthBottomTabNavigator}
-      />
-      <AdminStackNavigator.Screen name="Profile" component={ProfileScreen} />
-    </AdminStackNavigator.Navigator>
-  );
-};
+const AdminNavigator = createStackNavigator({
+  Profile: ProfileScreen,
+  Tab: NoAuthBottomTab,
+});
 
-const ContactStackNavigator = createNativeStackNavigator();
-export const ContactNavigator = () => {
-  return (
-    <ContactStackNavigator.Navigator>
-      <ContactStackNavigator.Screen
-        name="Tab"
-        component={NoAuthBottomTabNavigator}
-      />
-      <ContactStackNavigator.Screen name="Contact" component={ContactScreen} />
-    </ContactStackNavigator.Navigator>
-  );
-};
+const ContactNavigator = createStackNavigator({
+  Contact: ContactScreen,
+  Tab: NoAuthBottomTab,
+});
 
-const AuthStackNavigator = createNativeStackNavigator();
-export const AuthNavigator = () => {
-  return (
-    <AuthStackNavigator.Navigator>
-      <AuthStackNavigator.Screen
-        name="Tab"
-        component={NoAuthBottomTabNavigator}
-      />
-      <AuthStackNavigator.Screen name="Auth" component={AuthScreen} />
-    </AuthStackNavigator.Navigator>
-  );
-};
+const AuthNavigator = createStackNavigator({
+  Auth: AuthScreen,
+  Tab: NoAuthBottomTab,
+});
 
-const ShopDrawer = createDrawerNavigator();
-export const ShopNavigator = () => {
-  return (
-    <ShopDrawer.Navigator
-      // screenOptions={{ headerShown: false }}
-      drawerContent={(props) => {
-        return (
-          <View style={{ flex: 1, paddingTop: 20 }}>
-            <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
-              <DrawerItemList {...props} />
-              <Button
-                title="Logout"
-                color={Colors.primary}
-                onPress={() => {}}
-              />
-            </SafeAreaView>
-          </View>
-        );
-      }}
-    >
-      <ShopDrawer.Screen
-        name="Products"
-        component={ProductNavigator}
-        options={{
-          drawerIcon: (props) => (
-            <Ionicons
-              name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
-              size={23}
-              color={props.color}
-            />
-          ),
-        }}
-      />
-      <ShopDrawer.Screen name="Uploads" component={UploadNavigator} />
-      <ShopDrawer.Screen name="Admins" component={AdminNavigator} />
-      <ShopDrawer.Screen name="Contacts" component={ContactNavigator} />
-    </ShopDrawer.Navigator>
-  );
-};
+const ShopNavigator = createDrawerNavigator(
+  {
+    Products: ProductsNavigator,
+    Upload: UploadNavigator,
+    Admin: AdminNavigator,
+    Contact: ContactNavigator,
+  },
+  {
+    contentOptions: {
+      activeTintColor: Colors.primary,
+    },
+    contentComponent: (props) => {
+      return (
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
+            <DrawerNavigatorItems {...props} />
+            <Button title="Logout" color={Colors.primary} onPress={() => {}} />
+          </SafeAreaView>
+        </View>
+      );
+    },
+  }
+);
+
+export default createAppContainer(ShopNavigator);
