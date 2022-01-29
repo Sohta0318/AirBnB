@@ -1,3 +1,4 @@
+import { Text } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import {
@@ -24,52 +25,40 @@ const defaultNavOptions = {
     backgroundColor: Platform.OS === "android" ? Colors.primary : "",
   },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
+  headerShown: false,
 };
 
-const NoAuthBottomTab = createMaterialBottomTabNavigator({
+const NoAuthBottomTab = createBottomTabNavigator({
   Explore: {
     screen: ProductHomeScreen,
     navigationOptions: {
+      tabBarLabel: "Explore",
       tabBarIcon: () => <Ionicons name="ios-search" size={24} color="black" />,
     },
   },
-  WishList: ProfileScreen,
-  "Log in": AuthScreen,
+  WishList: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      tabBarLabel: "WishList",
+      // tabBarOptions: {
+      //   activeTintColor: "black",
+      //   inactiveTintColor: "black",
+      // },
+      tabBarIcon: () => (
+        <Ionicons name="ios-heart-outline" size={24} color="black" />
+      ),
+    },
+  },
+  "Log in": {
+    screen: AuthScreen,
+    navigationOptions: {
+      tabBarLabel: "Log in",
+      tabBarIcon: () => (
+        <Ionicons name="ios-log-in-outline" size={24} color="black" />
+      ),
+    },
+  },
 });
-// const NoAuthBottomTab = createBottomTabNavigator();
-// export const NoAuthBottomTabNavigator = () => {
-//   return (
-//     <NoAuthBottomTab.Navigator screenOptions={{ headerShown: false }}>
-//       <NoAuthBottomTab.Screen
-//         name="Explore"
-//         component={ProductNavigator}
-//         options={{
-//           tabBarIcon: () => (
-//             <Ionicons name="ios-search" size={24} color="black" />
-//           ),
-//         }}
-//       />
-//       <NoAuthBottomTab.Screen
-//         name="WishList"
-//         component={AdminNavigator}
-//         options={{
-//           tabBarIcon: () => (
-//             <Ionicons name="ios-heart-outline" size={24} color="black" />
-//           ),
-//         }}
-//       />
-//       <NoAuthBottomTab.Screen
-//         name="Log in"
-//         component={AuthNavigator}
-//         options={{
-//           tabBarIcon: () => (
-//             <Ionicons name="ios-log-in-outline" size={24} color="black" />
-//           ),
-//         }}
-//       />
-//     </NoAuthBottomTab.Navigator>
-//   );
-// };
 
 const ProductsNavigator = createStackNavigator(
   {

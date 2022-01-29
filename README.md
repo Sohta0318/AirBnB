@@ -1,1 +1,1 @@
-fix every navigation has header, fix to just one header
+ScrollView cant scroll to the bottom it bounce back
